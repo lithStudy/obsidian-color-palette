@@ -7,6 +7,7 @@ import { createRoot } from "react-dom/client";
 export const VIEW_TYPE_EXAMPLE = "example-view";
 
 export class ExampleView extends ItemView {
+	private root: any; // 存储 React 根实例
 	constructor(leaf: WorkspaceLeaf) {
 		super(leaf);
 	}
@@ -20,8 +21,8 @@ export class ExampleView extends ItemView {
 	}
 
 	async onOpen() {
-		const root = createRoot(this.containerEl.children[1]);
-		root.render(
+		this.root = createRoot(this.containerEl.children[1]);
+		this.root.render(
 			<React.StrictMode>
 				<ReactView />,
 			</React.StrictMode>
@@ -29,6 +30,9 @@ export class ExampleView extends ItemView {
 	}
 
 	async onClose() {
-		ReactDOM.unmountComponentAtNode(this.containerEl.children[1]);
+		if (this.root) {
+			this.root.unmount();
+		}
+		// ReactDOM.unmountComponentAtNode(this.containerEl.children[1]);
 	}
 }
