@@ -99,10 +99,10 @@ export const DominantColorView = () => {
 				</label>
 			</div>
 
-			<div style={{float: 'left'}}>
+			<div style={{float: 'left',marginRight: '10px'}}>
 				<img style={{maxHeight: '250px'}} id="origin-img" alt="Uploaded File"/>
 			</div>
-			<div style={{float: 'left', marginLeft: '20px'}}>
+			<div style={{float: 'left'}}>
 				<img style={{maxHeight: '250px'}} id="image-container" alt="Processed File"/>
 			</div>
 
