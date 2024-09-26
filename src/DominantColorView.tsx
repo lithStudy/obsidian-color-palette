@@ -83,8 +83,7 @@ export const DominantColorView = () => {
 
 	return (
 		<div className="App">
-			<h1>File Upload Example</h1>
-			<div style={{left: '50%'}}>
+			<div style={{left: '50%',marginTop: '10px'}}>
 				<input type="file" onChange={handleFileChange} style={{marginBottom: '10px'}}/>
 			</div>
 			<div style={{left: '50%', marginBottom: '20px'}}>
@@ -108,7 +107,7 @@ export const DominantColorView = () => {
 
 			{colors.length > 0 && (
 				<div className="color-palette">
-					<h2>提取的主色</h2>
+					<h3>提取的主色</h3>
 					<div className="color-squares">
 						{colors.map((color, index) => (
 							<div
@@ -133,7 +132,7 @@ export const DominantColorView = () => {
 					padding: 20px;
 				}
 
-				h1, h2 {
+				h1, h2,h3 {
 					text-align: center;
 				}
 
