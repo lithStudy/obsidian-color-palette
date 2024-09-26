@@ -1,6 +1,7 @@
 import esbuild from "esbuild";
 import process from "process";
 import builtins from "builtin-modules";
+import inlineWorkerPlugin from "esbuild-plugin-inline-worker";
 import * as fs from "fs";
 
 const banner =
@@ -18,6 +19,7 @@ const context = await esbuild.context({
 	},
 	entryPoints: ["main.ts"],
 	bundle: true,
+	plugins: [inlineWorkerPlugin()],
 	external: [
 		"obsidian",
 		"electron",
