@@ -25,7 +25,7 @@ export class ExampleView extends ItemView {
 		this.root = createRoot(this.containerEl.children[1]);
 		this.root.render(
 			<React.StrictMode>
-				<DominantColorView />,
+				<DominantColorView />
 				<TintShadeView/>,
 			</React.StrictMode>
 		);

@@ -1,19 +1,25 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import MyWorker from 'myworker.worker';
+import MyWorker from 'src/woker/myworker.worker';
 import {KCPP_result} from "k-colors"; // Make sure this path is correct
-import {createTintsAndShadesTemp} from "utils/colorUtil"
+import {copyToClipboard, rgbToHexTemp} from "utils/colorUtil";
+import 'src/css/common.css'
 
 const worker = new MyWorker();
 
 export const DominantColorView = () => {
 	const [file, setFile] = useState<File | null>(null);              // Selected file
 	const [dominantColorCount, setDominantColorCount] = useState(3); // Controls dominant() parameter
-	const [colors, setColors] = useState<number[][]>([]); // 保存从 kcppResult.colors 得到的 RGBA 数组
+	const [colors, setColors] = useState<string[]>([]); // 保存从 kcppResult.colors 得到的转换后的hex数据
+	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered color index
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFile = event.target.files?.[0];
 		if (!selectedFile) return;
+		if(selectedFile.size > 1024 * 1024 * 1){
+			alert("文件大小超过1MB，请重新选择")
+			return;
+		}
 
 		const objectUrl = URL.createObjectURL(selectedFile);
 		const container = document.getElementById('origin-img');
@@ -49,12 +55,22 @@ export const DominantColorView = () => {
 				worker.onmessage = (event) => {
 					console.log("onmessage:"+event)
 					const kcppResult = event.data as KCPP_result;
-					const aaaa =new KCPP_result(kcppResult.kmpp_result, kcppResult.img_data)
+					const aaaa = new KCPP_result(kcppResult.kmpp_result, kcppResult.img_data);
 					const clusteredImageDataURL = aaaa.get_clustered_dataurl();
 					displayClusteredImage(clusteredImageDataURL);
 
+					const hexColors = [];
+					kcppResult.colors.map(color => {
+						let rgb={};
+						rgb.red=color[0];
+						rgb.green=color[1];
+						rgb.blue=color[2];
+						let retColor = rgbToHexTemp(rgb)
+						hexColors.push(retColor);
+						console.log("kcppResult.colors.map:"+retColor)
+					})
 					// @ts-ignore
-					setColors(kcppResult.colors); // 更新颜色数组
+					setColors(hexColors); // 更新颜色数组
 				};
 
 				worker.onerror = (error) => {
@@ -74,6 +90,24 @@ export const DominantColorView = () => {
 		container?.setAttribute('src', dataurl);
 	};
 
+	// Copy color to clipboard
+	// const copyToClipboard = (color: number[]) => {
+	// 	console.log("copyToClipboard:"+color)
+	// 	let rgb={};
+	// 	rgb.red=color[0];
+	// 	rgb.green=color[1];
+	// 	rgb.blue=color[2];
+	// 	let retColor = rgbToHexTemp(rgb)
+	// 	console.log("copyToClipboard:"+retColor)
+	//
+	// 	// const rgbaString = `rgba(${color.join(',')})`;
+	// 	navigator.clipboard.writeText(retColor).then(() => {
+	// 		// alert(`Copied to clipboard: ${rgbaString}`);
+	// 	}, (err) => {
+	// 		console.error('Could not copy text: ', err);
+	// 	});
+	// };
+
 	// Re-process image when dominantColorCount changes
 	useEffect(() => {
 		if (file) {
@@ -82,7 +116,7 @@ export const DominantColorView = () => {
 	}, [dominantColorCount, file]);
 
 	return (
-		<div className="App">
+		<div className="palette-app-container">
 			<div style={{left: '50%',marginTop: '10px'}}>
 				<input type="file" onChange={handleFileChange} style={{marginBottom: '10px'}}/>
 			</div>
@@ -114,78 +148,22 @@ export const DominantColorView = () => {
 								key={index}
 								className="color-square"
 								style={{
-									backgroundColor: `rgba(${color.join(',')})`
+									backgroundColor: `#${color}`,
+									position: 'relative',
+									cursor: 'pointer'
 								}}
-							></div>
+								onMouseEnter={() => setHoveredIndex(index)}
+								onMouseLeave={() => setHoveredIndex(null)}
+								onClick={() => copyToClipboard(color)}
+							>
+								{hoveredIndex === index && (
+									<div className="copy-icon">📋</div>
+								)}
+							</div>
 						))}
 					</div>
 				</div>
 			)}
-
-			<div id="tints-and-shades">
-
-			</div>
-
-			<style jsx>{`
-				.app-container {
-					font-family: Arial, sans-serif;
-					padding: 20px;
-				}
-
-				h1, h2,h3 {
-					text-align: center;
-				}
-
-				.file-input {
-					display: block;
-					margin: 20px auto;
-				}
-
-				.color-count-input {
-					display: block;
-					margin: 10px auto;
-					width: 50px;
-				}
-
-				.image-section {
-					display: flex;
-					justify-content: space-around;
-					margin-top: 20px;
-				}
-
-				.image-display {
-					max-width: 300px;
-					max-height: 300px;
-					border: 1px solid #ccc;
-					margin-top: 10px;
-				}
-
-				.color-palette {
-					margin-top: 30px;
-					//text-align: left;
-					width: 100%;
-					float: left;
-				}
-				
-
-				.color-squares {
-					display: flex;
-					//justify-content: center;
-					flex-wrap: wrap;
-				}
-
-				.color-square {
-					width: 50px;
-					height: 50px;
-					margin: 5px;
-					border: 1px solid #000;
-				}
-				
-				.hex-color{
-					height: 40px;
-				}
-			`}</style>
-
 
 		</div>
 	);

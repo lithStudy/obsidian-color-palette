@@ -19,7 +19,14 @@ const context = await esbuild.context({
 	},
 	entryPoints: ["main.ts"],
 	bundle: true,
-	plugins: [inlineWorkerPlugin()],
+	plugins: [
+		inlineWorkerPlugin(),
+		cssPlugin({
+			// 你可以在这里配置 CSS 插件的选项
+			extract: !isProduction, // 是否提取 CSS 到单独的文件
+			minify: isProduction, // 是否压缩 CSS
+		}),
+	],
 	external: [
 		"obsidian",
 		"electron",

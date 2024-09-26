@@ -1,38 +1,59 @@
+
+export const copyToClipboard = (color) => {
+	console.log("copyToClipboard:"+color)
+	// let rgb={};
+	// rgb.red=color[0];
+	// rgb.green=color[1];
+	// rgb.blue=color[2];
+	// let retColor = rgbToHexTemp(rgb)
+	// console.log("copyToClipboard:"+retColor)
+
+	// const rgbaString = `rgba(${color.join(',')})`;
+	navigator.clipboard.writeText(color).then(() => {
+		// alert(`Copied to clipboard: ${rgbaString}`);
+	}, (err) => {
+		console.error('Could not copy text: ', err);
+	});
+};
+
 // e.g., whether the user wants copying to use a hashtag or not
-const settings = {
-  copyWithHashtag: false
-};
-
-// Load the state from localStorage
-const loadSettings = () => {
-  const savedSettings = localStorage.getItem('settings');
-  if (savedSettings) {
-    Object.assign(settings, JSON.parse(savedSettings));
-  }
-};
-
-// Save the state to localStorage
-const saveSettings = () => {
-  localStorage.setItem('settings', JSON.stringify(settings));
-};
-
-// Initialize the settings and checkbox state
-const initializeSettings = () => {
-  loadSettings();
-  const checkbox = document.getElementById('copy-with-hashtag');
-  if (checkbox) {
-    checkbox.checked = settings.copyWithHashtag;
-    checkbox.addEventListener('change', () => {
-      settings.copyWithHashtag = checkbox.checked;
-      saveSettings();
-    });
-  }
-};
-
-// Call initializeSettings when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', initializeSettings);
+// const settings = {
+//   copyWithHashtag: false
+// };
+//
+// // Load the state from localStorage
+// const loadSettings = () => {
+//   const savedSettings = localStorage.getItem('settings');
+//   if (savedSettings) {
+//     Object.assign(settings, JSON.parse(savedSettings));
+//   }
+// };
+//
+// // Save the state to localStorage
+// const saveSettings = () => {
+//   localStorage.setItem('settings', JSON.stringify(settings));
+// };
+//
+// // Initialize the settings and checkbox state
+// const initializeSettings = () => {
+//   loadSettings();
+//   const checkbox = document.getElementById('copy-with-hashtag');
+//   if (checkbox) {
+//     checkbox.checked = settings.copyWithHashtag;
+//     checkbox.addEventListener('change', () => {
+//       settings.copyWithHashtag = checkbox.checked;
+//       saveSettings();
+//     });
+//   }
+// };
+//
+// // Call initializeSettings when the DOM is fully loaded
+// document.addEventListener('DOMContentLoaded', initializeSettings);
 
 // Parse an input string, looking for any number of hexadecimal color values, possibly with whitespace or garbage in between. Return an array of color values. Supports hex shorthand.
+export function parseColorValuesTemp(colorValues){
+	return parseColorValues(colorValues)
+}
 const parseColorValues = (colorValues) => {
   let colorValuesArray = colorValues.match(/\b[0-9A-Fa-f]{3}\b|[0-9A-Fa-f]{6}\b/g);
   if (colorValuesArray) {
@@ -70,6 +91,9 @@ const intToHex = (rgbint) => pad(Math.min(Math.max(Math.round(rgbint), 0), 255).
 
 // Convert one of our rgb color objects to a full hex color string
 // { red: 80, green: 18, blue: 20 } => '501214'
+export function rgbToHexTemp(rgb){
+	return rgbToHex(rgb)
+}
 const rgbToHex = (rgb) => intToHex(rgb.red) + intToHex(rgb.green) + intToHex(rgb.blue);
 
 // Shade one of our rgb color objects to a distance of i*10%
@@ -102,9 +126,15 @@ const calculate = (colorValue, shadeOrTint) => {
 };
 
 // Given a color value, return an array of ten shades in 10% increments
+export function calculateShadesTemp(colorValue){
+	return calculateShades(colorValue)
+}
 const calculateShades = (colorValue) => calculate(colorValue, rgbShade).concat("000000");
 
 // Given a color value, return an array of ten tints in 10% increments
+export function calculateTintsTemp(colorValue){
+	return calculateTints(colorValue)
+}
 const calculateTints = (colorValue) => calculate(colorValue, rgbTint).concat("ffffff");
 
 const updateClipboardData = () => {
@@ -130,7 +160,7 @@ const makeTableRowColors = (colors, displayType) => {
     const colorHex = color.toString(16);
     if (displayType === "colors") { // Make a row of colors
       // We have to account for the prefix here in case the user toggled the checkbox before generating another palette
-      const colorPrefix = settings.copyWithHashtag ? "#" : "";
+      const colorPrefix = "#";
       tableRow += `<td tabindex="0" role="button" aria-label="Color swatch" class="hex-color" style="background-color:#${colorHex}" data-clipboard-text="${colorPrefix}${colorHex}"></td>`;
     } else { // Make a row of RGB values
       tableRow += `<td class="hex-value">${colorHex.toUpperCase()}</td>`;
@@ -152,6 +182,7 @@ const createTintsAndShades = (colors) => {
     let tableRowCounter = 0;
 
     parsedColorsArray.forEach(color => { // Iterate through each inputted color value
+		debugger
       // Calculate an array of shades from the inputted color, then make a table row from the shades, and a second table row for the hex values of the shades
       const calculatedShades = calculateShades(color);
       colorDisplayRows[tableRowCounter] = makeTableRowColors(calculatedShades, "colors");
@@ -170,78 +201,8 @@ const createTintsAndShades = (colors) => {
     // Wrap the rows into an HTML table with a hard-coded header row
     const colorDisplayTable = `<table><thead><tr class="table-header"><td><span>0%</span></td><td><span>10%</span></td><td><span>20%</span></td><td><span>30%</span></td><td><span>40%</span></td><td><span>50%</span></td><td><span>60%</span></td><td><span>70%</span></td><td><span>80%</span></td><td><span>90%</span></td><td><span>100%</span></td></tr></thead>${colorDisplayRows.join("")}</table>`;
 	return colorDisplayTable;
-    // // Replace tints-and-shades div with color display table wrapped by the same div
-    // document.getElementById("tints-and-shades").innerHTML = colorDisplayTable;
-	//
-    // // Set URL hash to a comma-separated list of hex codes
-    // window.location.hash = parsedColorsArray.join(",");
-	//
-    // // Custom smooth scroll function
-    // const smoothScrollTo = (element, duration) => {
-    //   const targetPosition = element.getBoundingClientRect().top + window.scrollY;
-    //   const startPosition = window.scrollY;
-    //   const distance = targetPosition - startPosition;
-    //   let startTime = null;
-	//
-    //   const animation = (currentTime) => {
-    //     if (startTime === null) startTime = currentTime;
-    //     const timeElapsed = currentTime - startTime;
-    //     const run = ease(timeElapsed, startPosition, distance, duration);
-    //     window.scrollTo(0, run);
-    //     if (timeElapsed < duration) requestAnimationFrame(animation);
-    //   };
-	//
-    //   const ease = (t, b, c, d) => {
-    //     t /= d / 2;
-    //     if (t < 1) return c / 2 * t * t + b;
-    //     t--;
-    //     return -c / 2 * (t * (t - 2) - 1) + b;
-    //   };
-	//
-    //   requestAnimationFrame(animation);
-    // };
-	//
-    // // Scroll down to show the tints-and-shades div
-    // const scrollElement = document.getElementById("scroll-top");
-    // if (scrollElement) {
-    //   smoothScrollTo(scrollElement, 500);
-    // } else {
-    //   console.error("Element with id 'scroll-top' not found.");
-    // }
-	//
-    // // Set focus to the color display table
-    // setTimeout(() => {
-    //   const tintsAndShades = document.getElementById("tints-and-shades");
-    //   tintsAndShades.setAttribute("tabindex", "0");
-    //   tintsAndShades.focus();
-    // });
-	//
-    // // When color display table loses focus, make it not focusable again
-    // document.getElementById("tints-and-shades").addEventListener("blur", () => {
-    //   document.getElementById("tints-and-shades").setAttribute("tabindex", "-1");
-    // });
-  } else if (!firstTime) { // Doesn't run on page load (the first time it runs)
-    // Scroll back to top of page
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Remove any existing content from tints-and-shades div
-    document.getElementById("tints-and-shades").innerHTML = "";
-
-    // Reset the URL hash
-    window.location.hash = "";
-
-    // Show warning
-    document.getElementById("warning").classList.add("visible");
-
-    // Hide warning after 3 seconds
-    setTimeout(() => {
-      document.getElementById("warning").classList.remove("visible");
-    }, 3000);
-
-    // Set focus back to the text area
-    document.getElementById("color-values").focus();
   }
-  return false;
+  return '';
 };
 
 // Main application code. Parse the inputted color numbers, make an HTML with the colors in it, and render the table into the page.
