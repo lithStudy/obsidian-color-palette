@@ -2,10 +2,11 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import MyWorker from 'myworker.worker';
 import {KCPP_result} from "k-colors"; // Make sure this path is correct
+import {createTintsAndShadesTemp} from "utils/colorUtil"
 
 const worker = new MyWorker();
 
-export const ReactView = () => {
+export const DominantColorView = () => {
 	const [file, setFile] = useState<File | null>(null);              // Selected file
 	const [dominantColorCount, setDominantColorCount] = useState(3); // Controls dominant() parameter
 	const [colors, setColors] = useState<number[][]>([]); // 保存从 kcppResult.colors 得到的 RGBA 数组
@@ -19,6 +20,7 @@ export const ReactView = () => {
 		container?.setAttribute('src', objectUrl);
 
 		setFile(selectedFile);
+
 	};
 
 	// Process Image Function
@@ -120,6 +122,10 @@ export const ReactView = () => {
 				</div>
 			)}
 
+			<div id="tints-and-shades">
+
+			</div>
+
 			<style jsx>{`
 				.app-container {
 					font-family: Arial, sans-serif;
@@ -160,6 +166,7 @@ export const ReactView = () => {
 					width: 100%;
 					float: left;
 				}
+				
 
 				.color-squares {
 					display: flex;
@@ -172,6 +179,10 @@ export const ReactView = () => {
 					height: 50px;
 					margin: 5px;
 					border: 1px solid #000;
+				}
+				
+				.hex-color{
+					height: 40px;
 				}
 			`}</style>
 

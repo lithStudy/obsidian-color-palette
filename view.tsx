@@ -1,7 +1,8 @@
 import { ItemView, WorkspaceLeaf } from "obsidian";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { ReactView } from "./ReactView";
+import { DominantColorView } from "./src/DominantColorView";
+import {TintShadeView} from "./src/TintShadeView"
 import { createRoot } from "react-dom/client";
 
 export const VIEW_TYPE_EXAMPLE = "example-view";
@@ -24,7 +25,8 @@ export class ExampleView extends ItemView {
 		this.root = createRoot(this.containerEl.children[1]);
 		this.root.render(
 			<React.StrictMode>
-				<ReactView />,
+				<DominantColorView />,
+				<TintShadeView/>,
 			</React.StrictMode>
 		);
 	}

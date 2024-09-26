@@ -140,8 +140,12 @@ const makeTableRowColors = (colors, displayType) => {
   return tableRow;
 };
 
-const createTintsAndShades = (firstTime) => {
-  const parsedColorsArray = parseColorValues(document.getElementById("color-values").value);
+export function createTintsAndShadesTemp(colors){
+	return createTintsAndShades(colors)
+}
+const createTintsAndShades = (colors) => {
+	const parsedColorsArray = parseColorValues(colors);
+  // const parsedColorsArray = parseColorValues(document.getElementById("color-values").value);
   if (parsedColorsArray !== null) {
     // Make sure we got valid color values back from parsing
     const colorDisplayRows = []; // Holds HTML table rows for the colors to display
@@ -165,57 +169,57 @@ const createTintsAndShades = (firstTime) => {
 
     // Wrap the rows into an HTML table with a hard-coded header row
     const colorDisplayTable = `<table><thead><tr class="table-header"><td><span>0%</span></td><td><span>10%</span></td><td><span>20%</span></td><td><span>30%</span></td><td><span>40%</span></td><td><span>50%</span></td><td><span>60%</span></td><td><span>70%</span></td><td><span>80%</span></td><td><span>90%</span></td><td><span>100%</span></td></tr></thead>${colorDisplayRows.join("")}</table>`;
-
-    // Replace tints-and-shades div with color display table wrapped by the same div
-    document.getElementById("tints-and-shades").innerHTML = colorDisplayTable;
-
-    // Set URL hash to a comma-separated list of hex codes
-    window.location.hash = parsedColorsArray.join(",");
-
-    // Custom smooth scroll function
-    const smoothScrollTo = (element, duration) => {
-      const targetPosition = element.getBoundingClientRect().top + window.scrollY;
-      const startPosition = window.scrollY;
-      const distance = targetPosition - startPosition;
-      let startTime = null;
-
-      const animation = (currentTime) => {
-        if (startTime === null) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        const run = ease(timeElapsed, startPosition, distance, duration);
-        window.scrollTo(0, run);
-        if (timeElapsed < duration) requestAnimationFrame(animation);
-      };
-
-      const ease = (t, b, c, d) => {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t + b;
-        t--;
-        return -c / 2 * (t * (t - 2) - 1) + b;
-      };
-
-      requestAnimationFrame(animation);
-    };
-
-    // Scroll down to show the tints-and-shades div
-    const scrollElement = document.getElementById("scroll-top");
-    if (scrollElement) {
-      smoothScrollTo(scrollElement, 500);
-    } else {
-      console.error("Element with id 'scroll-top' not found.");
-    }
-
-    // Set focus to the color display table
-    setTimeout(() => {
-      const tintsAndShades = document.getElementById("tints-and-shades");
-      tintsAndShades.setAttribute("tabindex", "0");
-      tintsAndShades.focus();
-    });
-
-    // When color display table loses focus, make it not focusable again
-    document.getElementById("tints-and-shades").addEventListener("blur", () => {
-      document.getElementById("tints-and-shades").setAttribute("tabindex", "-1");
-    });
+	return colorDisplayTable;
+    // // Replace tints-and-shades div with color display table wrapped by the same div
+    // document.getElementById("tints-and-shades").innerHTML = colorDisplayTable;
+	//
+    // // Set URL hash to a comma-separated list of hex codes
+    // window.location.hash = parsedColorsArray.join(",");
+	//
+    // // Custom smooth scroll function
+    // const smoothScrollTo = (element, duration) => {
+    //   const targetPosition = element.getBoundingClientRect().top + window.scrollY;
+    //   const startPosition = window.scrollY;
+    //   const distance = targetPosition - startPosition;
+    //   let startTime = null;
+	//
+    //   const animation = (currentTime) => {
+    //     if (startTime === null) startTime = currentTime;
+    //     const timeElapsed = currentTime - startTime;
+    //     const run = ease(timeElapsed, startPosition, distance, duration);
+    //     window.scrollTo(0, run);
+    //     if (timeElapsed < duration) requestAnimationFrame(animation);
+    //   };
+	//
+    //   const ease = (t, b, c, d) => {
+    //     t /= d / 2;
+    //     if (t < 1) return c / 2 * t * t + b;
+    //     t--;
+    //     return -c / 2 * (t * (t - 2) - 1) + b;
+    //   };
+	//
+    //   requestAnimationFrame(animation);
+    // };
+	//
+    // // Scroll down to show the tints-and-shades div
+    // const scrollElement = document.getElementById("scroll-top");
+    // if (scrollElement) {
+    //   smoothScrollTo(scrollElement, 500);
+    // } else {
+    //   console.error("Element with id 'scroll-top' not found.");
+    // }
+	//
+    // // Set focus to the color display table
+    // setTimeout(() => {
+    //   const tintsAndShades = document.getElementById("tints-and-shades");
+    //   tintsAndShades.setAttribute("tabindex", "0");
+    //   tintsAndShades.focus();
+    // });
+	//
+    // // When color display table loses focus, make it not focusable again
+    // document.getElementById("tints-and-shades").addEventListener("blur", () => {
+    //   document.getElementById("tints-and-shades").setAttribute("tabindex", "-1");
+    // });
   } else if (!firstTime) { // Doesn't run on page load (the first time it runs)
     // Scroll back to top of page
     window.scrollTo({ top: 0, behavior: 'smooth' });
