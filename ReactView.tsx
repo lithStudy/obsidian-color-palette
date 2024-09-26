@@ -8,6 +8,7 @@ const worker = new MyWorker();
 export const ReactView = () => {
 	const [file, setFile] = useState<File | null>(null);              // Selected file
 	const [dominantColorCount, setDominantColorCount] = useState(3); // Controls dominant() parameter
+	const [colors, setColors] = useState<number[][]>([]); // 保存从 kcppResult.colors 得到的 RGBA 数组
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFile = event.target.files?.[0];
@@ -49,6 +50,8 @@ export const ReactView = () => {
 					const aaaa =new KCPP_result(kcppResult.kmpp_result, kcppResult.img_data)
 					const clusteredImageDataURL = aaaa.get_clustered_dataurl();
 					displayClusteredImage(clusteredImageDataURL);
+
+					setColors(kcppResult.colors); // 更新颜色数组
 				};
 
 				worker.onerror = (error) => {
@@ -78,26 +81,101 @@ export const ReactView = () => {
 	return (
 		<div className="App">
 			<h1>File Upload Example</h1>
-			<input type="file" onChange={handleFileChange}/>
-			<label>
-				Dominant Color Count:
-				<input
-					type="number"
-					value={dominantColorCount}
-					onChange={(e) => setDominantColorCount(Number(e.target.value))}
-					min={3} max={10} // Limit input range
-				/>
-			</label>
-			{file && (
-				<p>Selected file: {file.name}</p>
-			)}
-
-			<div>
-				<img id="origin-img" alt="Uploaded File"/>
+			<div style={{left: '50%'}}>
+				<input type="file" onChange={handleFileChange} style={{marginBottom: '10px'}}/>
+			</div>
+			<div style={{left: '50%', marginBottom: '20px'}}>
+				<label>
+					color count:
+					<input
+						type="number"
+						value={dominantColorCount}
+						onChange={(e) => setDominantColorCount(Number(e.target.value))}
+						min={3} max={10} // Limit input range
+					/>
+				</label>
 			</div>
 
+			<div style={{float: 'left'}}>
+				<img style={{maxHeight: '250px'}} id="origin-img" alt="Uploaded File"/>
+			</div>
+			<div style={{float: 'left', marginLeft: '20px'}}>
+				<img style={{maxHeight: '250px'}} id="image-container" alt="Processed File"/>
+			</div>
 
-			<img id="image-container" alt="Processed File"/>
+			{colors.length > 0 && (
+				<div className="color-palette">
+					<h2>提取的主色</h2>
+					<div className="color-squares">
+						{colors.map((color, index) => (
+							<div
+								key={index}
+								className="color-square"
+								style={{
+									backgroundColor: `rgba(${color.join(',')})`
+								}}
+							></div>
+						))}
+					</div>
+				</div>
+			)}
+
+			<style jsx>{`
+				.app-container {
+					font-family: Arial, sans-serif;
+					padding: 20px;
+				}
+
+				h1, h2 {
+					text-align: center;
+				}
+
+				.file-input {
+					display: block;
+					margin: 20px auto;
+				}
+
+				.color-count-input {
+					display: block;
+					margin: 10px auto;
+					width: 50px;
+				}
+
+				.image-section {
+					display: flex;
+					justify-content: space-around;
+					margin-top: 20px;
+				}
+
+				.image-display {
+					max-width: 300px;
+					max-height: 300px;
+					border: 1px solid #ccc;
+					margin-top: 10px;
+				}
+
+				.color-palette {
+					margin-top: 30px;
+					//text-align: left;
+					width: 100%;
+					float: left;
+				}
+
+				.color-squares {
+					display: flex;
+					//justify-content: center;
+					flex-wrap: wrap;
+				}
+
+				.color-square {
+					width: 50px;
+					height: 50px;
+					margin: 5px;
+					border: 1px solid #000;
+				}
+			`}</style>
+
+
 		</div>
 	);
 };
