@@ -53,6 +53,7 @@ export const DominantColorView = () => {
 					const clusteredImageDataURL = aaaa.get_clustered_dataurl();
 					displayClusteredImage(clusteredImageDataURL);
 
+					// @ts-ignore
 					setColors(kcppResult.colors); // 更新颜色数组
 				};
 

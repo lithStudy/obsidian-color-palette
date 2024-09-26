@@ -8,9 +8,11 @@ export const TintShadeView = () => {
 	// 更新方法名称并调整逻辑以响应按钮点击
 	const handleColorUpdate = () => {
 		const colorDisplayTable = createTintsAndShadesTemp(colors);
+		// @ts-ignore
 		document.getElementById("tints-and-shades").innerHTML = colorDisplayTable;
 	};
 
+	// @ts-ignore
 	return (
 		<div className="App">
 			<div className="input-class">
