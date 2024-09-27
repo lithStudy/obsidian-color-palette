@@ -106,7 +106,7 @@ const HSVColorWheel = () => {
 
 	return (
 		<div className="palette-app-container">
-			<h3>色环</h3>
+			<h3>Color Wheel</h3>
 
 			<div style={{ width: "100%", float: "left" }}>
 				<canvas

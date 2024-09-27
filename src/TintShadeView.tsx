@@ -56,14 +56,15 @@ export const TintShadeView = () => {
 	// @ts-ignore
 	return (
 		<div className="palette-app-container">
-			<h3>相似颜色</h3>
+			<h3>Tints And Shades</h3>
 			<div className="input-class">
 				{/* 添加输入框和按钮 */}
 				<input
 					type="text"
 					value={inputColorStr}
 					onChange={(e) => setInputColorStr(e.target.value)}
-					placeholder="Enter colors here"
+					style={{ width: '300px' }}
+					placeholder="Enter colors here,Comma-separated"
 				/>
 				<button onClick={handleColorUpdate} style={{ cursor: 'pointer' }}>Generate Tints and Shades</button>
 			</div>

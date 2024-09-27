@@ -139,7 +139,7 @@ export const DominantColorView = () => {
 
 	return (
 		<div className="palette-app-container">
-			<h3>提取主色</h3>
+			<h3>Dominant Colors</h3>
 			<div style={{left: '50%',marginTop: '10px'}}>
 				<input type="file" accept="image/*" onChange={handleFileChange} style={{marginBottom: '10px',cursor: 'pointer'}}/>
 			</div>
