@@ -7,7 +7,7 @@ import {
 	parseColorValuesTemp
 } from "utils/colorUtil";
 import * as React from "react";
-import 'src/css/common.css'
+import 'src/styles/common.css'; // 引入公共CSS文件
 
 export const TintShadeView = () => {
 	const [inputColorStr, setInputColorStr] = useState<string>(""); // 保存从 kcppResult.colors 得到的 RGBA 数组
@@ -47,6 +47,8 @@ export const TintShadeView = () => {
 	};
 
 	// @ts-ignore
+	// @ts-ignore
+	// @ts-ignore
 	return (
 		<div className="palette-app-container">
 			<h3>相似颜色</h3>
@@ -78,18 +80,18 @@ export const TintShadeView = () => {
 													position: 'relative',
 													cursor: 'pointer'
 												}}
-												onMouseEnter={() => setHoveredIndex(`shade-${shadeIndex}`)}
+												onMouseEnter={() => setHoveredIndex(`shade-${index}-${shadeIndex}`)}
 												onMouseLeave={() => setHoveredIndex(null)}
 												onClick={() => copyToClipboard(shade)}
 											>
-												{hoveredIndex === `shade-${shadeIndex}` && (
+												{hoveredIndex === `shade-${index}-${shadeIndex}` && (
 													<div className="copy-icon">📋</div>
 												)}
 											</div>
 										))}
 									</div>
 									<div className="tint-squares">
-										{color.calculatedTints.map((tint, tintIndex) => (
+										{color.calculatedTints.map((tint: any, tintIndex: React.Key) => (
 											<div
 												key={tintIndex}
 												className="color-square"
@@ -98,11 +100,11 @@ export const TintShadeView = () => {
 													position: 'relative',
 													cursor: 'pointer'
 												}}
-												onMouseEnter={() => setHoveredIndex(`tint-${tintIndex}`)}
+												onMouseEnter={() => setHoveredIndex(`tint-${index}-${tintIndex}`)}
 												onMouseLeave={() => setHoveredIndex(null)}
 												onClick={() => copyToClipboard(tint)}
 											>
-												{hoveredIndex === `tint-${tintIndex}` && (
+												{hoveredIndex === `tint-${index}-${tintIndex}` && (
 													<div className="copy-icon">📋</div>
 												)}
 											</div>

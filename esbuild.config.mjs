@@ -3,6 +3,7 @@ import process from "process";
 import builtins from "builtin-modules";
 import inlineWorkerPlugin from "esbuild-plugin-inline-worker";
 import * as fs from "fs";
+import postcss from 'esbuild-postcss';
 
 const banner =
 `/*
@@ -21,12 +22,15 @@ const context = await esbuild.context({
 	bundle: true,
 	plugins: [
 		inlineWorkerPlugin(),
-		cssPlugin({
-			// 你可以在这里配置 CSS 插件的选项
-			extract: !isProduction, // 是否提取 CSS 到单独的文件
-			minify: isProduction, // 是否压缩 CSS
-		}),
+		// postcss({
+		// 	plugins: [],
+		// 	inject: ['src/styles/common.css'], // 注入公共 CSS 文件
+		// }),
 	],
+	loader: {
+		'.js': 'jsx',
+		'.css': 'css', // 加载CSS文件
+	},
 	external: [
 		"obsidian",
 		"electron",
@@ -53,7 +57,23 @@ const context = await esbuild.context({
 
 if (prod) {
 	await context.rebuild();
+	fs.rename("main.css", "styles.css", (err) => {
+		if (err) {
+			throw err;
+		}
+	});
 	process.exit(0);
 } else {
 	await context.watch();
+	fs.watchFile("main.css", () => {
+		fs.access("main.css", fs.constants.F_OK, (err) => {
+			if (!err) {
+				fs.rename("main.css", "styles.css", (err) => {
+					if (err) {
+						throw err;
+					}
+				});
+			}
+		});
+	});
 }

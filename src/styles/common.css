@@ -40,17 +40,14 @@
 	float: left;
 }
 
-.color-squares {
+.color-square {
 	display: flex;
 	flex-wrap: wrap;
-}
+	width: 100%;
+	height: 30px;
 
-.color-square {
-	width: 50px;
-	height: 50px;
-	margin: 5px;
 	border: 1px solid #000;
-	position: relative;
+	border-radius: 4px;
 }
 
 .copy-icon {
@@ -102,11 +99,7 @@
 	gap: 5px; /* Adjust spacing between individual squares */
 }
 
-.color-square {
-	width: 30px;
-	height: 30px;
-	border-radius: 4px;
-}
+
 
 h1, h2 {
 	text-align: center;
