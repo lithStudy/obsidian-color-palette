@@ -22,9 +22,11 @@
 4. 开启后，在侧边栏将多出一个调色板按钮，点击工具即出现
 
 # 后续计划
-1. 在色环右侧增加快照色块 
-2. 增加其他配色模式
-3. 允许收藏调色板保存为笔记（将会结合这个插件：https://github.com/ALegendsTale/obsidian-color-palette）
+1. 使用新窗口打开，而不是替换已激活的窗口
+2. 增加快捷命令
+3. 在色环右侧增加快照色块 
+4. 增加其他配色模式
+5. 允许收藏调色板保存为笔记（将会结合这个插件：https://github.com/ALegendsTale/obsidian-color-palette）
 
 # 感谢
 提取主色算法来自：https://github.com/ppzreboot/k-colors.js/tree/main
