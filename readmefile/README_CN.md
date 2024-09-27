@@ -15,7 +15,10 @@
 ![case.gif](case.gif)
 
 # 安装
-暂未上架官方仓库，请先手动安装：    
+暂未上架官方仓库，请先手动安装：
+## 方案一
+下载release中的zip压缩包，解压后直接解压后的文件夹拖入obsidian插件目录即可
+## 方案二
 1. 在obsidian插件文件夹中新建一个文件夹，命名为`obsidian-color-palette-tool`  
 2. 将本仓库中的`main.js`, `style.css`，`manifest.json`文件复制到上面那个文件夹
 3. 安装已成功，在obsidian第三方插件已安装列表中将可以看到`color palette Plugin`,开启即可
