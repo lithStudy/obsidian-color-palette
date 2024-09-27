@@ -2,14 +2,14 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import MyWorker from 'src/woker/myworker.worker';
 import {KCPP_result} from "k-colors"; // Make sure this path is correct
-import {copyToClipboard, rgbToHexTemp} from "utils/colorUtil";
+import {copyToClipboard, rgbToHexTemp} from "src/utils/colorUtil";
 import imageCompression from 'browser-image-compression';
 
 const worker = new MyWorker();
 
 export const DominantColorView = () => {
 	const [file, setFile] = useState<File | null>(null);              // Selected file
-	const [dominantColorCount, setDominantColorCount] = useState(3); // Controls dominant() parameter
+	const [dominantColorCount, setDominantColorCount] = useState(5); // Controls dominant() parameter
 	const [colors, setColors] = useState<string[]>([]); // 保存从 kcppResult.colors 得到的转换后的hex数据
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Track hovered color index
 	const [orginUrl,setOriginUrl] = useState<string>()
@@ -91,12 +91,16 @@ export const DominantColorView = () => {
 					setDominantUrl(clusteredImageDataURL)
 					// displayClusteredImage(clusteredImageDataURL);
 
-					const hexColors = [];
+					const hexColors: any[] | ((prevState: string[]) => string[]) = [];
 					kcppResult.colors.map(color => {
-						let rgb={};
-						rgb.red=color[0];
-						rgb.green=color[1];
-						rgb.blue=color[2];
+						let rgb:{red:number,blue:number,green:number}={
+							red:color[0],
+							green:color[1],
+							blue:color[2]
+						};
+						// rgb.red=color[0];
+						// rgb.green=color[1];
+						// rgb.blue=color[2];
 						let retColor = rgbToHexTemp(rgb)
 						hexColors.push(retColor);
 						console.log("kcppResult.colors.map:"+retColor)
@@ -137,7 +141,7 @@ export const DominantColorView = () => {
 		<div className="palette-app-container">
 			<h3>提取主色</h3>
 			<div style={{left: '50%',marginTop: '10px'}}>
-				<input type="file" accept="image/*" onChange={handleFileChange} style={{marginBottom: '10px'}}/>
+				<input type="file" accept="image/*" onChange={handleFileChange} style={{marginBottom: '10px',cursor: 'pointer'}}/>
 			</div>
 			<div style={{left: '50%', marginBottom: '20px'}}>
 				<label>
@@ -153,12 +157,17 @@ export const DominantColorView = () => {
 			{loading && (
 				<h5>处理中...</h5>
 			)}
-			<div style={{float: 'left',marginRight: '10px'}}>
-				<img style={{maxHeight: '250px'}} id="origin-img" alt="Uploaded File" src={orginUrl}/>
-			</div>
-			<div style={{float: 'left'}}>
-				<img style={{maxHeight: '250px'}} id="image-container" alt="Processed File" src={dominantUrl}/>
-			</div>
+			{orginUrl && (
+				<div style={{float: 'left', marginRight: '10px'}}>
+					<img style={{maxHeight: '300px'}} id="origin-img" alt="Uploaded File" src={orginUrl}/>
+				</div>
+			)}
+			{dominantUrl && (
+				<div style={{float: 'left'}}>
+					<img style={{maxHeight: '300px'}} id="image-container" alt="Processed File" src={dominantUrl}/>
+				</div>
+			)}
+
 
 			{colors.length > 0 && (
 				<div className="color-palette">

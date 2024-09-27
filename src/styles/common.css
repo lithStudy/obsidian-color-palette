@@ -4,10 +4,12 @@
 	width: 100%;
 	height: auto;
 	float: left;
+	border-bottom: 1px #4c3c3c solid;
 }
 
 .palette-app-container h1, h2, h3 {
 	text-align: center;
+
 }
 
 .file-input {

@@ -23,16 +23,12 @@ export class ExampleView extends ItemView {
 	}
 
 	async onOpen() {
-		const handleColorSelect = (color: any) => {
-			console.log('Selected Color:', color);
-		};
-
 		this.root = createRoot(this.containerEl.children[1]);
 		this.root.render(
 			<React.StrictMode>
 				<DominantColorView />
 				<TintShadeView/>
-				<ColorWheel onColorSelect={handleColorSelect} />
+				<ColorWheel/>
 
 			</React.StrictMode>
 		);

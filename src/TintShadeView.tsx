@@ -5,13 +5,15 @@ import {
 	copyToClipboard,
 	createTintsAndShadesTemp,
 	parseColorValuesTemp
-} from "utils/colorUtil";
+} from "src/utils/colorUtil";
 import * as React from "react";
-import 'src/styles/common.css'; // 引入公共CSS文件
+import 'src/styles/common.css';
+import {string} from "prop-types";
+import {CalculatedColorObj} from "./interfaces/commonInterface";
 
 export const TintShadeView = () => {
 	const [inputColorStr, setInputColorStr] = useState<string>(""); // 保存从 kcppResult.colors 得到的 RGBA 数组
-	const [colors, setColors] = useState<[]>([]); // 保存从 kcppResult.colors 得到的 RGBA 数组
+	const [colors, setColors] = useState<CalculatedColorObj[]>([]); // 保存从 kcppResult.colors 得到的 RGBA 数组
 	const [hoveredIndex, setHoveredIndex] = useState<string>(""); // Track hovered color index
 	// 更新方法名称并调整逻辑以响应按钮点击
 	const handleColorUpdate = () => {
@@ -21,17 +23,20 @@ export const TintShadeView = () => {
 			return;
 		}
 
-		const colorDisplayRows = []; // Holds HTML table rows for the colors to display
+		const colorDisplayRows :CalculatedColorObj[] = []; // Holds HTML table rows for the colors to display
 		let tableRowCounter = 0;
-		parsedColorsArray.forEach(color => { // Iterate through each inputted color value
-			const calculatedColorObj={};
+		parsedColorsArray.forEach((color: any) => { // Iterate through each inputted color value
+			const calculatedColorObj: CalculatedColorObj= {
+				calculatedShades: [],
+				calculatedTints: []
+			};
 			// Calculate an array of shades from the inputted color, then make a table row from the shades, and a second table row for the hex values of the shades
-			const calculatedShades = calculateShadesTemp(color);
+			const calculatedShades:string[] = calculateShadesTemp(color);
 			// colorDisplayRows[tableRowCounter] = makeTableRowColors(calculatedShades, "colors");
 			// tableRowCounter++;
 
 			// Calculate an array of tints from the inputted color, then make a table row from the tints, and a second table row for the hex values of the tints
-			const calculatedTints = calculateTintsTemp(color);
+			const calculatedTints:string[] = calculateTintsTemp(color);
 			// colorDisplayRows[tableRowCounter] = makeTableRowColors(calculatedTints, "colors");
 			// tableRowCounter++;
 			calculatedColorObj.calculatedShades = calculatedShades;
@@ -60,7 +65,7 @@ export const TintShadeView = () => {
 					onChange={(e) => setInputColorStr(e.target.value)}
 					placeholder="Enter colors here"
 				/>
-				<button onClick={handleColorUpdate}>Generate Tints and Shades</button>
+				<button onClick={handleColorUpdate} style={{ cursor: 'pointer' }}>Generate Tints and Shades</button>
 			</div>
 
 			<div id="tints-and-shades">

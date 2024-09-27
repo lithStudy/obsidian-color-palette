@@ -1,5 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
-import {copyToClipboard, hsvToHex} from "../utils/colorUtil";
+import * as React from "react";
+import { useState, useEffect,useRef } from "react";
+import {copyToClipboard, hsvToHex} from "./utils/colorUtil";
 
 const HSVColorWheel = () => {
 	const canvasRef = useRef(null);
@@ -42,14 +43,14 @@ const HSVColorWheel = () => {
 		ctx.stroke();
 	}, [hue]);
 
-	// 绘制饱和度-明度三角形
+	// 绘制饱和度-明度
 	useEffect(() => {
 		const triangleCanvas = triangleRef.current;
 		const ctx = triangleCanvas.getContext('2d');
 		const width = triangleCanvas.width;
 		const height = triangleCanvas.height;
 
-		// 创建饱和度-明度三角形
+		// 创建饱和度-明度
 		const gradient = ctx.createLinearGradient(0, 0, width, 0);
 		gradient.addColorStop(0, `hsl(${hue}, 0%, 100%)`);
 		gradient.addColorStop(1, `hsl(${hue}, 100%, 50%)`);
@@ -65,7 +66,7 @@ const HSVColorWheel = () => {
 		ctx.fillRect(0, 0, width, height);
 	}, [hue]);
 
-	const handleHueSelection = (e) => {
+	const handleHueSelection = (e: { clientX: number; clientY: number; }) => {
 		const rect = canvasRef.current.getBoundingClientRect();
 		const x = e.clientX - rect.left;
 		const y = e.clientY - rect.top;
@@ -77,7 +78,7 @@ const HSVColorWheel = () => {
 		setSelectedHex(hsvToHex(hue, saturation, value))
 	};
 
-	const handleSVSelection = (e) => {
+	const handleSVSelection = (e: { clientX: number; clientY: number; }) => {
 		const rect = triangleRef.current.getBoundingClientRect();
 		const x = e.clientX - rect.left;
 		const y = e.clientY - rect.top;
@@ -97,6 +98,8 @@ const HSVColorWheel = () => {
 
 	return (
 		<div className="palette-app-container">
+			<h3>色环</h3>
+
 			<div style={{width: '100%', float: "left"}}>
 				<canvas
 					ref={canvasRef}
@@ -129,7 +132,7 @@ const HSVColorWheel = () => {
 				---
 				hex({selectedHex})
 			</div>
-			<button onClick={copyFunction} style={{marginTop: '10px'}}>
+			<button onClick={copyFunction} style={{marginTop: '10px',cursor: 'pointer'}}>
 				Copy hex to Clipboard
 			</button>
 		</div>

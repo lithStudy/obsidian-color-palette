@@ -27,7 +27,6 @@
 	"dependencies": {
 		"browser-image-compression": "^2.0.2",
 		"esbuild-plugin-inline-worker": "^0.1.1",
-		"k-colors": "^0.1.0",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1"
 	}
