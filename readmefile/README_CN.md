@@ -14,6 +14,13 @@
 # 演示
 ![case.gif](case.gif)
 
+# 安装
+暂未上架官方仓库，请先手动安装：    
+1. 在obsidian插件文件夹中新建一个文件夹，命名为`obsidian-color-palette-tool`  
+2. 将本仓库中的`main.js`, `style.css`，`manifest.json`文件复制到上面那个文件夹
+3. 安装已成功，在obsidian第三方插件已安装列表中将可以看到`color palette Plugin`,开启即可
+4. 开启后，在侧边栏将多出一个调色板按钮，点击工具即出现
+
 # 后续计划
 1. 在色环右侧增加快照色块 
 2. 增加其他配色模式

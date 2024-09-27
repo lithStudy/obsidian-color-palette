@@ -15,6 +15,14 @@ Select colors on an HSB color wheel and allow copying the hex color codes.
 # Demo
 ![case.gif](readmefile/case.gif)
 
+# Installation
+Not yet available in the official repository, please install manually:
+1. Create a new folder in the Obsidian plugins folder and name it `obsidian-color-palette-tool`.
+2. Copy the `main.js`, `style.css`, and `manifest.json` files from this repository into the folder created above.
+3. Installation is now complete. You will see `Color Palette Plugin` in the list of installed third-party plugins in Obsidian. Enable it.
+4. After enabling, a color palette button will appear in the sidebar. Click it to access the tool.
+
+
 # Future Plans
 1. To add a snapshot color block to the right side of the color wheel
 2. Add other color schemes.
