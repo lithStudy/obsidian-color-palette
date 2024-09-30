@@ -5,7 +5,8 @@ import { DominantColorView } from "./src/DominantColorView";
 import {TintShadeView} from "./src/TintShadeView"
 import { createRoot } from "react-dom/client";
 import 'src/styles/common.css';
-import ColorWheel from "./src/ColorWheel"; // 引入公共CSS文件
+import ColorWheel from "./src/ColorWheel";
+import {ColorThiefView} from "./src/ColorThiefView"; // 引入公共CSS文件
 export const VIEW_TYPE_EXAMPLE = "example-view";
 
 export class ExampleView extends ItemView {
@@ -26,7 +27,8 @@ export class ExampleView extends ItemView {
 		this.root = createRoot(this.containerEl.children[1]);
 		this.root.render(
 			<React.StrictMode>
-				<DominantColorView />
+				<ColorThiefView/>
+				{/*<DominantColorView />*/}
 				<TintShadeView/>
 				<ColorWheel/>
 
