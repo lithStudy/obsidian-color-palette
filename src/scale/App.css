@@ -1,0 +1,68 @@
+#mufengmucao-color-palette .App {
+  text-align: center;
+}
+
+#mufengmucao-color-palette  .App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+#mufengmucao-color-palette  .App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+#mufengmucao-color-palette  .App-title {
+  font-size: 1.5em;
+}
+
+#mufengmucao-color-palette  .App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#mufengmucao-color-palette :root {
+	--space-s: 8px;
+	--space-m: 16px;
+	--space-l: 32px;
+	--space-xl: 48px;
+}
+
+@media (max-width: 720px) {
+	#mufengmucao-color-palette  :root {
+		--space-s: 4px;
+		--space-m: 8px;
+		--space-l: 16px;
+		--space-xl: 32px;
+	}
+}
+
+/*#mufengmucao-color-palette  html {*/
+/*	height: 100%;*/
+/*}*/
+
+#mufengmucao-color-palette{
+	margin: 0;
+	padding: 0;
+	font-family: 'Cousine', monospace !important;
+	color: var(--bodyColor) !important;
+	background-color: var(--bodyBg) !important;
+	font-size: 14px;
+	line-height: 20px;
+	height: 100%;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-feature-settings: "tnum";
+}
+
+#mufengmucao-color-palette  *, *:before, *:after {
+	box-sizing: border-box;
+}
+

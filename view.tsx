@@ -6,7 +6,10 @@ import {TintShadeView} from "./src/TintShadeView"
 import { createRoot } from "react-dom/client";
 import 'src/styles/common.css';
 import ColorWheel from "./src/ColorWheel";
-import {ColorThiefView} from "./src/ColorThiefView"; // 引入公共CSS文件
+import {ColorThiefView} from "./src/ColorThiefView";
+import GalleryApp from "./src/components/gallery-app";
+import App from "./src/scale/App";
+import ScaleApp from "./src/scale/App"; // 引入公共CSS文件
 export const VIEW_TYPE_EXAMPLE = "example-view";
 
 export class ExampleView extends ItemView {
@@ -27,10 +30,10 @@ export class ExampleView extends ItemView {
 		this.root = createRoot(this.containerEl.children[1]);
 		this.root.render(
 			<React.StrictMode>
-				<ColorThiefView/>
-				{/*<DominantColorView />*/}
-				<TintShadeView/>
-				<ColorWheel/>
+				<ScaleApp/>
+				{/*<ColorThiefView/>*/}
+				{/*<TintShadeView/>*/}
+				{/*<ColorWheel/>*/}
 
 			</React.StrictMode>
 		);

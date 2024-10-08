@@ -26,10 +26,15 @@
 	},
 	"dependencies": {
 		"browser-image-compression": "^2.0.2",
+		"color": "^3.0.0",
 		"colorthief": "^2.4.0",
 		"esbuild-plugin-inline-worker": "^0.1.1",
+		"gh-pages": "^1.2.0",
+		"k-means-pp": "^2.3.1",
 		"react": "^18.3.1",
+		"react-copy-to-clipboard": "^5.1.0",
 		"react-dom": "^18.3.1",
-		"k-means-pp": "^2.3.1"
+		"react-router-dom": "^6.26.2",
+		"styled-components": "^6.1.13"
 	}
 }
