@@ -1,5 +1,5 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
-import { ExampleView, VIEW_TYPE_EXAMPLE } from "./view";
+import { ScaleView, VIEW_TYPE_COLOR_PALETTE_SCALE } from "./src/scale/scaleView";
 // Remember to rename these classes and interfaces!
 
 interface MyPluginSettings {
@@ -17,14 +17,14 @@ export default class MyPlugin extends Plugin {
 		await this.loadSettings();
 
 		this.registerView(
-			VIEW_TYPE_EXAMPLE,
-			(leaf) => new ExampleView(leaf)
+			VIEW_TYPE_COLOR_PALETTE_SCALE,
+			(leaf) => new ScaleView(leaf)
 		);
 
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('palette', 'Sample Plugin', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
+			// new Notice('This is a notice!');
 			this.activateView();
 		});
 		// Perform additional things with the ribbon
@@ -81,7 +81,7 @@ export default class MyPlugin extends Plugin {
 		// });
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
+		// this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 
 
 
@@ -100,15 +100,15 @@ export default class MyPlugin extends Plugin {
 	}
 
 	async activateView() {
-		this.app.workspace.detachLeavesOfType(VIEW_TYPE_EXAMPLE);
+		this.app.workspace.detachLeavesOfType(VIEW_TYPE_COLOR_PALETTE_SCALE);
 
-		await this.app.workspace.getLeaf(false).setViewState({
-			type: VIEW_TYPE_EXAMPLE,
+		await this.app.workspace.getLeaf(true).setViewState({
+			type: VIEW_TYPE_COLOR_PALETTE_SCALE,
 			active: true,
 		});
 
 		this.app.workspace.revealLeaf(
-			this.app.workspace.getLeavesOfType(VIEW_TYPE_EXAMPLE)[0]
+			this.app.workspace.getLeavesOfType(VIEW_TYPE_COLOR_PALETTE_SCALE)[0]
 		);
 	}
 

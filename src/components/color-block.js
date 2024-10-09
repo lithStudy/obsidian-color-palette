@@ -17,8 +17,8 @@ const ColorBlockCode = styled.div`
 const ColorBlockContainer = styled.div`
   position: relative;
   height: 72px;
-  max-width: ${props => props.wide ? 192 : 72}px;
-  ${props => props.wide && 'min-width: 192px'};
+  max-width: ${props => props.wide ? 140 : 72}px;
+  ${props => props.wide && 'min-width: 140px'};
   width: 100%;
   ${props => !props.hasValidColor && 'box-shadow: inset 0 0 0 2px #ddd'};
   flex-shrink: 1;

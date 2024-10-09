@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './App.css'
+import './scaleApp.css'
 import Color from 'color'
 import styled from 'styled-components'
 import DynamicInput from 'src/components/dynamic-input.js'
@@ -38,6 +38,7 @@ const TopSection = styled.div`
 `
 
 const GlobalConfigSection = styled.div`
+	//all: unset !important;
   display: flex;
   margin-bottom: 40px;
 
@@ -46,12 +47,21 @@ const GlobalConfigSection = styled.div`
 	  //margin-bottom: 20px;
   }
 `
+const ChromePickerWrapper = styled.div`
+  margin-right: 40px;
+	padding-bottom: 15px;
+	//margin-bottom: 15px;
+  flex-shrink: 1;
+  width: ${props => props.wide ? 180 : 96}px;
+`
 
 const InputsRow = styled.div`
+	//all: unset !important;
   display: flex;
   width: 100%;
   margin-bottom: var(--space-xl);
-
+	flex-direction: row;
+	flex-wrap: wrap;
   @media (max-width: 720px) {
     flex-direction: column;
   }
@@ -61,15 +71,18 @@ const InputsRowItem = styled.div`
   margin-right: 40px;
 	padding-bottom: 15px;
 	//margin-bottom: 15px;
-  flex-shrink: 0;
-  width: ${props => props.wide ? 192 : 96}px;
+  flex-shrink: 1;
+  width: ${props => props.wide ? 140 : 96}px;
 `
+
+
+
 
 const InputsRowItemSeparataor = styled.div`
   margin-right: 48px;
   display: block;
   width: 1px;
-  flex-shrink: 0;
+  flex-shrink: 1;
   background-color: var(--border);
 `
 
@@ -123,7 +136,6 @@ const ScaleApp = () => {
   // const initialState = getHash() || defaultState
 	const initialState = defaultState
   const [mainColor, setMainColor] = useState(initialState.mainColor)
-	console.log("mainColor:"+mainColor)
   const [r, setR] = useState(initialState.r)
   const [g, setG] = useState(initialState.g)
   const [b, setB] = useState(initialState.b)
@@ -305,9 +317,9 @@ const ScaleApp = () => {
 				  <ColorsSection>
 					  <GlobalConfigSection>
 						  {/*<InputsRow>*/}
-							  <InputsRowItem wide>
+							  <ChromePickerWrapper wide>
 					  				<ChromePicker  onChange={ handleChangeComplete }  color={ numberToHex(mainColor) } width={180} disableAlpha={false}/>
-							  </InputsRowItem>
+							  </ChromePickerWrapper>
 						  {/*</InputsRow>*/}
 						  <MainColorSelector
 							  onInputChange={handleMainColorChange}
@@ -411,8 +423,8 @@ const ScaleApp = () => {
 						  </InputsRowItem>
 
 					  </InputsRow>
-					  <InputsRow>
 						  {/*<InputsRowItemSeparataor />*/}
+					  <InputsRow>
 
 						  <InputsRowItem>
 							  <DynamicInput
