@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import Button from './button'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import {CopyToClipboard} from 'react-copy-to-clipboard'
 import Color from 'color'
-import { numberToHex } from 'src/utils/utils'
+import {numberToHex} from 'src/utils/utils'
 
 const Title = styled.div`
   font-size: 12px;
@@ -112,15 +112,18 @@ const Triggers = ({
         >
           <Button>Copy SVG</Button>
         </CopyToClipboard>
-        
+	  </ButtonsRow>
+		<ButtonsRow>
         <CopyToClipboard
           text={getColorsListText(darkColors, mainColor, lightColors)}
         >
           <Button>Copy colors</Button>
         </CopyToClipboard>
 	  </ButtonsRow>
-		<ButtonsRow>
+	<ButtonsRow>
         <Button onClick={() => randomState()}>Randomize all</Button>
+	</ButtonsRow>
+	<ButtonsRow>
         <Button onClick={() => randomColor()}>Randomize color</Button>
       </ButtonsRow>
     </React.Fragment>

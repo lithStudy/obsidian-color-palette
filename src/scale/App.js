@@ -11,9 +11,12 @@ import ColorsRow from 'src/components/colors-row'
 import MainColorSelector from 'src/components/main-color-selector'
 import BackgroundSelector from 'src/components/background-selector'
 import Triggers from 'src/components/triggers'
+import {ChromePicker} from "react-color";
 
 const MainWrapper = styled.div`
-  padding: 20px 20px;
+  padding-left: 20px;
+	padding-right: 20px;
+	
   //min-height: 100vh;
   display: flex;
   flex-direction: column; 
@@ -36,10 +39,11 @@ const TopSection = styled.div`
 
 const GlobalConfigSection = styled.div`
   display: flex;
-  margin-bottom: 64px;
+  margin-bottom: 40px;
 
   flex-wrap: wrap;
-    @media (max-width: 1100px) {
+  @media (max-width: 1100px) {
+	  //margin-bottom: 20px;
   }
 `
 
@@ -55,6 +59,8 @@ const InputsRow = styled.div`
 
 const InputsRowItem = styled.div`
   margin-right: 40px;
+	padding-bottom: 15px;
+	//margin-bottom: 15px;
   flex-shrink: 0;
   width: ${props => props.wide ? 192 : 96}px;
 `
@@ -69,8 +75,8 @@ const InputsRowItemSeparataor = styled.div`
 
 const BackgroundSelectorSection = styled.div`
   border-left: 1px solid var(--border);
-  padding: 0 48px;
-  height: 160px;
+  padding: 0 30px;
+  height: 200px;
   
   @media (max-width: 720px) {
     padding: 16px 0;
@@ -82,7 +88,8 @@ const BackgroundSelectorSection = styled.div`
 
 const TriggersSection = styled.div`
   border-left: 1px solid var(--border);
-  padding: 0 48px;
+  padding: 0 30px;
+	height: 200px;
   
   @media (max-width: 720px) {
     padding: 16px 0;
@@ -115,9 +122,8 @@ const ScaleApp = () => {
 
   // const initialState = getHash() || defaultState
 	const initialState = defaultState
-	console.log("defaultState:"+defaultState)
   const [mainColor, setMainColor] = useState(initialState.mainColor)
-	console.log("defaultState:"+mainColor)
+	console.log("mainColor:"+mainColor)
   const [r, setR] = useState(initialState.r)
   const [g, setG] = useState(initialState.g)
   const [b, setB] = useState(initialState.b)
@@ -130,6 +136,8 @@ const ScaleApp = () => {
   const [lightColorsMixRotate, setLightColorsMixRotate] = useState(initialState.lightColorsMixRotate)
   const [lightSaturation, setLightSaturation] = useState(initialState.lightSaturation)
   const [darkSaturation, setDarkSaturation] = useState(initialState.darkSaturation)
+
+	const [myColor, setMyColor] = useState("#fff")
 
   const [bgColor, setBgColor] = useState(initialState.bgColor)
 
@@ -214,7 +222,21 @@ const ScaleApp = () => {
 
   const darkColors = getColorsList(darkColorsAmount, darkestAmount, 'black', darkColorsMixRotate, darkSaturation, mainColor).reverse().map((color) => (color))
   const lightColors = getColorsList(lightColorsAmount, lightestAmount, 'white', lightColorsMixRotate, lightSaturation, mainColor).map((color) => (color))
-  
+
+	const handleChangeComplete=(color, event) => {
+		// setMyColor(color.hex);
+		let typedColorFiltered
+		if (color.hex[0] === '#') {
+			typedColorFiltered = color.hex.substr(1, color.hex.length)
+		} else {
+			typedColorFiltered = color.hex
+		}
+
+		setMainColor(typedColorFiltered);
+		updateRgbWithMainColor(typedColorFiltered)
+		// console.log("color:"+color)
+	};
+
   const setBgColorVar = () => {
     let color = ''
 
@@ -262,8 +284,6 @@ const ScaleApp = () => {
     const bodyDimmed = Color(givenColor).mix(Color(getMixColor()), 0.5).fade(0.7).string()
     const bodyXDimmed = Color(givenColor).mix(Color(getMixColor()), 0.5).fade(0.9).string()
 
-	  console.log("bodyXDimmed:"+bodyXDimmed)
-
     document.documentElement.style.setProperty('--bodyColor', bodyColor)
     document.documentElement.style.setProperty('--bodyDimmed', bodyDimmed)
     document.documentElement.style.setProperty('--bodyXDimmed', bodyXDimmed)
@@ -274,13 +294,21 @@ const ScaleApp = () => {
   }
 
   setBodyColorVar()
+
+
   
   return (
 	  <div id={'mufengmucao-color-palette'}>
+
 		  <MainWrapper>
 			  <TopSection>
 				  <ColorsSection>
 					  <GlobalConfigSection>
+						  {/*<InputsRow>*/}
+							  <InputsRowItem wide>
+					  				<ChromePicker  onChange={ handleChangeComplete }  color={ numberToHex(mainColor) } width={180} disableAlpha={false}/>
+							  </InputsRowItem>
+						  {/*</InputsRow>*/}
 						  <MainColorSelector
 							  onInputChange={handleMainColorChange}
 							  onInputBlur={(e) => !e.target.value && setMainColor(666)}

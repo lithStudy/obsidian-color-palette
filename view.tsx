@@ -10,7 +10,8 @@ import {ColorThiefView} from "./src/ColorThiefView";
 import GalleryApp from "./src/components/gallery-app";
 import App from "./src/scale/App";
 import ScaleApp from "./src/scale/App"; // 引入公共CSS文件
-export const VIEW_TYPE_EXAMPLE = "example-view";
+import { PhotoshopPicker } from 'react-color'
+export const VIEW_TYPE_EXAMPLE = "color-plate";
 
 export class ExampleView extends ItemView {
 	private root: any; // 存储 React 根实例
@@ -30,6 +31,7 @@ export class ExampleView extends ItemView {
 		this.root = createRoot(this.containerEl.children[1]);
 		this.root.render(
 			<React.StrictMode>
+
 				<ScaleApp/>
 				{/*<ColorThiefView/>*/}
 				{/*<TintShadeView/>*/}

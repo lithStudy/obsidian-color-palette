@@ -112,7 +112,7 @@ const DynamicInputLabel = styled.div`
 
 const DynamicInputRoot = styled.div`
   display: flex;
-  margin-bottom: 16px;
+  //margin-bottom: 16px;
 `
 
 const DynamicInput = ({ value, onChange, color, prefix, sufix, withSlider, withRgbSlider, label, min, max, ...rest }) => {

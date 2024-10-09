@@ -4,16 +4,28 @@ import Slider from './slider'
 import DynamicInput from './dynamic-input'
 import { numberToHex } from 'src/utils/utils'
 
+
+
 const InputsRow = styled.div`
-  display: flex;
+  	display: flex;
+	border-left: 1px solid var(--border);
+	padding: 0 0 0 30px;
+	margin-bottom: 15px;
+	height: 200px;
+	//padding: 0 40px;
+	//height: 160px;
 
   @media (max-width: 720px) {
-    flex-direction: column;
+    //flex-direction: column;
+	  padding: 16px 0;
+	  margin-top: 16px;
+	  border-left: 0;
+	  border-top: 1px solid var(--border);
   }
 `
 
 const InputsRowItem = styled.div`
-  margin-right: 40px;
+  margin-right: 25px;
   flex-shrink: 0;
   width: ${props => props.wide ? 192 : 96}px;
 `

@@ -32,6 +32,7 @@
 		"gh-pages": "^1.2.0",
 		"k-means-pp": "^2.3.1",
 		"react": "^18.3.1",
+		"react-color": "^2.19.3",
 		"react-copy-to-clipboard": "^5.1.0",
 		"react-dom": "^18.3.1",
 		"react-router-dom": "^6.26.2",
