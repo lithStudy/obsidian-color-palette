@@ -3,13 +3,10 @@
 
 # 功能说明
 ## 提取主色
-分析上传的图片，提取出其中的主要色调，可选择提取的颜色种类，默认提取5种
+分析上传的图片，提取出其中的主要色调，可选择提取的颜色种类
 
-## 产生相似颜色
-输入一个或多个颜色，生成颜色减淡和颜色加深各11种色彩，用于搭配邻近色
-
-## 色环
-在HSB色环中选择颜色，并允许复制为hex格式的颜色代码
+## 产生分级颜色
+指定一个颜色，产生不同色调的深色和浅色
 
 # 演示
 ![case.gif](case.gif)
@@ -25,14 +22,14 @@
 4. 开启后，在侧边栏将多出一个调色板按钮，点击工具即出现
 
 # 后续计划
-1. 使用新窗口打开，而不是替换已激活的窗口
-2. 增加快捷命令
-3. 在色环右侧增加快照色块 
-4. 增加其他配色模式
-5. 允许收藏调色板保存为笔记（将会结合这个插件：https://github.com/ALegendsTale/obsidian-color-palette）
+1. 增加快捷命令
+2. 在色环右侧增加快照色块 
+3. 增加其他配色模式
+4. 允许收藏调色板保存为笔记（将会结合这个插件：https://github.com/ALegendsTale/obsidian-color-palette）
 
 # 感谢
-提取主色算法来自：https://github.com/ppzreboot/k-colors.js/tree/main
-产生相似颜色来自：https://github.com/edelstone/tints-and-shades
+Color Scale 来自 https://github.com/hihayk/scale/tree/master
+Color Pickers 来自 https://github.com/casesandberg/react-color?tab=readme-ov-file
+Color Thief 来自 https://github.com/lokesh/color-thief?tab=readme-ov-file
 
 此外，感谢GPT4O，让我以一个后端开发者的身份毫无难度的完成了这个前端项目

@@ -1,5 +1,6 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import { ScaleView, VIEW_TYPE_COLOR_PALETTE_SCALE } from "./src/scale/scaleView";
+import {ThiefView, VIEW_TYPE_COLOR_PALETTE_THIEF} from "./src/thief/thiefView";
 // Remember to rename these classes and interfaces!
 
 interface MyPluginSettings {
@@ -20,19 +21,34 @@ export default class MyPlugin extends Plugin {
 			VIEW_TYPE_COLOR_PALETTE_SCALE,
 			(leaf) => new ScaleView(leaf)
 		);
+		this.registerView(
+			VIEW_TYPE_COLOR_PALETTE_THIEF,
+			(leaf) => new ThiefView(leaf)
+		)
 
 		// This creates an icon in the left ribbon.
-		const ribbonIconEl = this.addRibbonIcon('palette', 'Sample Plugin', (evt: MouseEvent) => {
+		const ribbonIconEl = this.addRibbonIcon('palette', 'Sample Plugin1', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
 			// new Notice('This is a notice!');
-			this.activateView();
+			this.activateScaleView();
 		});
 		// Perform additional things with the ribbon
 		ribbonIconEl.addClass('my-plugin-ribbon-class');
 
+		// This creates an icon in the left ribbon.
+		const ribbonIconElForThief = this.addRibbonIcon('palette', 'Sample Plugin2', (evt: MouseEvent) => {
+			// Called when the user clicks the icon.
+			// new Notice('This is a notice!');
+			this.activateThiefView();
+		});
+		// Perform additional things with the ribbon
+		ribbonIconElForThief.addClass('my-plugin-ribbon-class');
+
+
+
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
-		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText('Status Bar Text');
+		// const statusBarItemEl = this.addStatusBarItem();
+		// statusBarItemEl.setText('Status Bar Text');
 
 		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
@@ -99,7 +115,7 @@ export default class MyPlugin extends Plugin {
 		await this.saveData(this.settings);
 	}
 
-	async activateView() {
+	async activateScaleView() {
 		this.app.workspace.detachLeavesOfType(VIEW_TYPE_COLOR_PALETTE_SCALE);
 
 		await this.app.workspace.getLeaf(true).setViewState({
@@ -109,6 +125,19 @@ export default class MyPlugin extends Plugin {
 
 		this.app.workspace.revealLeaf(
 			this.app.workspace.getLeavesOfType(VIEW_TYPE_COLOR_PALETTE_SCALE)[0]
+		);
+	}
+
+	async activateThiefView() {
+		this.app.workspace.detachLeavesOfType(VIEW_TYPE_COLOR_PALETTE_THIEF);
+
+		await this.app.workspace.getLeaf(true).setViewState({
+			type: VIEW_TYPE_COLOR_PALETTE_THIEF,
+			active: true,
+		});
+
+		this.app.workspace.revealLeaf(
+			this.app.workspace.getLeavesOfType(VIEW_TYPE_COLOR_PALETTE_THIEF)[0]
 		);
 	}
 
