@@ -2,11 +2,11 @@ import {ItemView, WorkspaceLeaf} from "obsidian";
 import * as React from "react";
 import {createRoot} from "react-dom/client";
 import 'src/styles/common.css';
-import ScaleApp from "./scaleApp";
+import PaletteApp from "./paletteApp";
 
-export const VIEW_TYPE_COLOR_PALETTE_SCALE = "color-palette-scale";
+export const VIEW_TYPE_COLOR_PALETTE_SCALE = "color-palette";
 
-export class ScaleView extends ItemView {
+export class PaletteView extends ItemView {
 	private root: any; // 存储 React 根实例
 	constructor(leaf: WorkspaceLeaf) {
 		super(leaf);
@@ -17,14 +17,14 @@ export class ScaleView extends ItemView {
 	}
 
 	getDisplayText() {
-		return "color palette scale";
+		return "Palette";
 	}
 
 	async onOpen() {
 		this.root = createRoot(this.containerEl.children[1]);
 		this.root.render(
 			<React.StrictMode>
-				<ScaleApp/>
+				<PaletteApp/>
 			</React.StrictMode>
 		);
 	}

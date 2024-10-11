@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './scaleApp.css'
+import './paletteApp.css'
 import Color from 'color'
 import styled from 'styled-components'
 import DynamicInput from 'src/components/dynamic-input.js'
@@ -112,7 +112,7 @@ const TriggersSection = styled.div`
   }
 `
 
-const ScaleApp = () => {  
+const PaletteApp = () => {
   const getHash = () => {
     const hash = decodeURI(window.location.hash)
 
@@ -494,10 +494,10 @@ const ScaleApp = () => {
 // const App = () => (
 //   <Router basename={process.env.PUBLIC_URL}>
 //     <div>
-//       <Route exact path="/" component={ScaleApp} />
+//       <Route exact path="/" component={PaletteApp} />
 //       <Route exact path="/gallery" component={GalleryApp} />
 //     </div>
 //   </Router>
 // )
 
-export default ScaleApp
+export default PaletteApp

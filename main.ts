@@ -1,6 +1,6 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
-import { ScaleView, VIEW_TYPE_COLOR_PALETTE_SCALE } from "./src/scale/scaleView";
-import {ThiefView, VIEW_TYPE_COLOR_PALETTE_THIEF} from "./src/thief/thiefView";
+import {addIcon, App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting} from 'obsidian';
+import { PaletteView, VIEW_TYPE_COLOR_PALETTE_SCALE } from "./src/palette/paletteView";
+import {PipetteView, VIEW_TYPE_COLOR_PALETTE_THIEF} from "./src/pipette/pipetteView";
 // Remember to rename these classes and interfaces!
 
 interface MyPluginSettings {
@@ -19,30 +19,30 @@ export default class MyPlugin extends Plugin {
 
 		this.registerView(
 			VIEW_TYPE_COLOR_PALETTE_SCALE,
-			(leaf) => new ScaleView(leaf)
+			(leaf) => new PaletteView(leaf)
 		);
 		this.registerView(
 			VIEW_TYPE_COLOR_PALETTE_THIEF,
-			(leaf) => new ThiefView(leaf)
+			(leaf) => new PipetteView(leaf)
 		)
 
 		// This creates an icon in the left ribbon.
-		const ribbonIconEl = this.addRibbonIcon('palette', 'Sample Plugin1', (evt: MouseEvent) => {
+		const ribbonIconElForPalette = this.addRibbonIcon('palette', 'Palette', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
 			// new Notice('This is a notice!');
 			this.activateScaleView();
 		});
 		// Perform additional things with the ribbon
-		ribbonIconEl.addClass('my-plugin-ribbon-class');
+		ribbonIconElForPalette.addClass('my-plugin-ribbon-class');
 
 		// This creates an icon in the left ribbon.
-		const ribbonIconElForThief = this.addRibbonIcon('palette', 'Sample Plugin2', (evt: MouseEvent) => {
+		const ribbonIconElForPipette = this.addRibbonIcon('pipette', 'Pipette', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
 			// new Notice('This is a notice!');
 			this.activateThiefView();
 		});
 		// Perform additional things with the ribbon
-		ribbonIconElForThief.addClass('my-plugin-ribbon-class');
+		ribbonIconElForPipette.addClass('my-plugin-ribbon-class');
 
 
 
