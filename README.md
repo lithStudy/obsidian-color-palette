@@ -3,17 +3,13 @@
 This is a palette tool that includes some of my favorite color selection capabilities.
 
 # Features
-## Extract Dominant Colors
-Analyze the uploaded image to extract the main hues. You can choose the number of colors to extract; by default, it extracts 5 colors.
+## 调色板
+Specify a color to generate darker and lighter shades.
+![palette.png](readmefile%2Fpalette.png)
+## 取色板
+Analyze the uploaded image to extract the main color tones.
+![pipette.png](readmefile%2Fpipette.png)
 
-## Generate Similar Colors
-Input one or more colors to generate 11 lighter and 11 darker shades for each, useful for pairing with adjacent colors.
-
-## Color Wheel
-Select colors on an HSB color wheel and allow copying the hex color codes.
-
-# Demo
-![case.gif](readmefile/case.gif)
 
 # Installation
 Not yet available in the official repository, please install manually:
