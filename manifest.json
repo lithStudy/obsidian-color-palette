@@ -1,9 +1,9 @@
 {
-	"id": "color-palette-plugin",
-	"name": "color palette Plugin",
+	"id": "color-palette-pipette",
+	"name": "color palette and pipette Plugin",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "color palette",
+	"description": "color palette and pipette",
 	"author": "mufengmucao",
 	"authorUrl": "https://obsidian.md",
 	"fundingUrl": "https://obsidian.md/pricing",

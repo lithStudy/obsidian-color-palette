@@ -1,4 +1,4 @@
-import {addIcon, App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting} from 'obsidian';
+import {App, Editor, MarkdownView, Modal, Plugin, PluginSettingTab, Setting} from 'obsidian';
 import { PaletteView, VIEW_TYPE_COLOR_PALETTE_SCALE } from "./src/palette/paletteView";
 import {PipetteView, VIEW_TYPE_COLOR_PALETTE_THIEF} from "./src/pipette/pipetteView";
 // Remember to rename these classes and interfaces!

@@ -1,7 +1,7 @@
 {
-	"name": "color-palette-plugin",
+	"name": "color-palette-pipette",
 	"version": "1.0.0",
-	"description": "color palette",
+	"description": "color palette amd pipette",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",

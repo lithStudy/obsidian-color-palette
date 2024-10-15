@@ -4,8 +4,7 @@ import ColorsRow from 'src/components/colors-row'
 import {hexToNumber} from "../utils/utils";
 import Color from "color";
 import 'src/styles/common.css'
-import { InboxOutlined } from '@ant-design/icons';
-import { message, Upload } from 'antd';
+import { Upload } from 'antd';
 
 
 
